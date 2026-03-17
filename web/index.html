@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pixelhub</title>
+    <style>
+        #screen {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        canvas {
+            position: absolute;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -webkit-crisp-edges;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            width: 1000px;
+            height: 1000px;
+        }
+
+        #hud {
+            position: absolute;
+            z-index: 1;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #mouse-preview, #hud {
+            pointer-events: none;
+        }
+
+        button {
+            pointer-events: all !important;
+        }
+    </style>
+    <script src="https://unpkg.com/@panzoom/panzoom@4.6.1/dist/panzoom.min.js"></script> <!-- biblioteca de pan e zoom-->
+    <script src="scripts/services.js"></script>           <!-- funções fetch -->
+    <script src="scripts/drawingTools.js"></script>         <!-- implementação das ferramentas -->
+    <script src="scripts/canvas.js" defer></script>        <!-- implementação da tela -->
+    <script src="scripts/sync.js" defer></script>              <!-- requests de sincronização da tela -->
+</head>
+<body>
+    <div id="hud">
+        <button onclick="penMode()">pincel</button>
+        <button onclick="penMode()">borracha</button>
+        <button onclick="penMode()">mover</button>
+        <button onclick="bucketMode()">balde tinta</button>
+    </div>
+    <div id="screen">
+        <canvas id="map"></canvas>
+        <canvas id="mouse-preview"></canvas>
+    </div>
+    </body>
+</html>
