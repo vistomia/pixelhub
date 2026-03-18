@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>pixelhub</title>
     <style>
+        body {
+            cursor: url('./ico.png') !important;
+        }
+
         #screen {
             width: 100vw;
             height: 100vh;
@@ -27,11 +31,22 @@
             height: 100vh;
         }
 
-        #mouse-preview, #hud {
+        #mouse-preview, #hud, #id {
             pointer-events: none;
         }
 
-        button {
+        #cursor {
+            position: absolute;
+            display: block;
+            background-color: black;
+            width: 15px;
+            height: 15px;
+            top: -55px;
+            left: 10px;
+        } 
+
+        button, input {
+            height: 3rem;
             pointer-events: all !important;
         }
     </style>
@@ -43,10 +58,14 @@
 </head>
 <body>
     <div id="hud">
-        <button onclick="penMode()">pincel</button>
-        <button onclick="penMode()">borracha</button>
-        <button onclick="penMode()">mover</button>
-        <button onclick="bucketMode()">balde tinta</button>
+        <button onclick="setPencil()">lápis</button>
+        <button onclick="setEraser()">borracha</button>
+        <button onclick="setPan()">mover</button>
+        <button onclick="setBucket()">balde de tinta</button>
+        <button onclick="setDropper()">conta gotas</button>
+        <input id="color-1" type="color" value="#000000"></input>
+        <input id="color-2" type="color" value="#FFFFFF"></input>
+        <div id="cursor"></div>
     </div>
     <div id="screen">
         <canvas id="map"></canvas>

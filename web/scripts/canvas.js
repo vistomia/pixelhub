@@ -1,5 +1,14 @@
+
+
+
+
+
+
+
 const canvas = document.getElementById("map")
 const mousePreview = document.getElementById("mouse-preview")
+const color1 = document.getElementById("color-1")
+const color2 = document.getElementById("color-1")
 
 const ctx = canvas.getContext("2d")
 const ctxM = mousePreview.getContext("2d")
@@ -19,17 +28,43 @@ ctxM.imageSmoothingEnabled = false;
 
 toolassist = {size: 10}
 
+pixelapp = new PixelApp()
+
+const pencil = new Pencil(ctx)
+const eraser = new Eraser(ctx)
+const pan = new Pan(ctx)
+
+pixelapp.setTool(pencil)
+
+color1.addEventListener("input", ()=>{
+    console.log("teste")
+    pixelapp.setColor(color1.value)
+})
+
 const panzoom = Panzoom(screen, {
-    maxScale: 5,
-    canvas: true,
-    disablePan: true
-  })
-
-
+        maxScale: 5,
+        canvas: true,
+        disablePan: true
+    })
 
 panzoom.pan(10, 10)
 panzoom.zoom(3, { animate: true })
-panzoom.pan(3, 3, { disablePan: true})
+
+function setPencil() {
+    panzoom.setOptions({ disablePan: true })
+    pixelapp.setTool(pencil)
+}
+
+function setEraser() {
+    panzoom.setOptions({ disablePan: true })
+    pixelapp.setTool(eraser)
+}
+
+function setPan() {
+    panzoom.setOptions({ disablePan: false })
+    pixelapp.setTool(pan)
+}
+
 screen.parentElement.addEventListener('wheel', panzoom.zoomWithWheel)
 
 function getMousePos(canvas, event) {
@@ -59,8 +94,7 @@ screen.addEventListener('pointermove', function(event) {
     ctxM.fillRect(gridPos.x, gridPos.y, size, size);
     
     if (painting) {
-        ctx.fillStyle = "rgb(0,255,0)"
-        ctx.fillRect(gridPos.x, gridPos.y, size, size);
+        pixelapp.useTool(gridPos.x, gridPos.y, 0, 0)
     }
 
     old = gridPos;
@@ -77,10 +111,7 @@ screen.addEventListener("pointerdown", function(event) {
         y: mousePos.y - (mousePos.y % size)
     };
     
-    if (painting) {
-        ctx.fillStyle = "rgb(0,255,0)"
-        ctx.fillRect(gridPos.x, gridPos.y, size, size);
-    }
+    pixelapp.useTool(gridPos.x, gridPos.y, 0, 0)
 });
 
 screen.addEventListener("pointerup", function(event) {    
