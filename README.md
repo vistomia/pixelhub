@@ -19,5 +19,28 @@ De Ferramenta: Pincel, Borracha, BaldeDeTinta
 
 ---
 Agregação -> Mural, que conterá uma matriz de Pixels
-Interface -> Desenha(que define uma operação como desenhar.
+Interface -> Desenha que define uma operação como desenhar.
 
+## TODO
+
+[ x ] Pencil
+[ x ] Eraser
+[ o ] Bucket
+[  ] Dropper
+[ X ] Pan
+[ ] Cursors
+[ ] Pallete
+
+## Rotas
+
+proibir pintar em uma distância longa
+definir número máximo de pixels que podem ser pintados
+
+usar websocket para enviar vetor
+
+desenhar
+["ação", cor, x, y]
+
+cor em hexadecimal
+x inteiro
+y inteiro

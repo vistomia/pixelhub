@@ -50,26 +50,67 @@
             pointer-events: all !important;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/@panzoom/panzoom@4.6.1/dist/panzoom.min.js"></script> <!-- biblioteca de pan e zoom-->
     <script src="scripts/services.js"></script>           <!-- funções fetch -->
     <script src="scripts/drawingTools.js"></script>         <!-- implementação das ferramentas -->
     <script src="scripts/canvas.js" defer></script>        <!-- implementação da tela -->
     <script src="scripts/sync.js" defer></script>              <!-- requests de sincronização da tela -->
 </head>
-<body>
+
+<body oncontextmenu="return false;">
     <div id="hud">
-        <button onclick="setPencil()">lápis</button>
-        <button onclick="setEraser()">borracha</button>
-        <button onclick="setPan()">mover</button>
-        <button onclick="setBucket()">balde de tinta</button>
-        <button onclick="setDropper()">conta gotas</button>
-        <input id="color-1" type="color" value="#000000"></input>
-        <input id="color-2" type="color" value="#FFFFFF"></input>
+        <header class="top-bar">
+            <div class="top-left">
+                <h1 class="logo-text">pixelhub</h1>
+                <div class="community-box"></div>
+                <span class="community-text">UFC</span>
+            </div>
+            <div class="top-right">
+                <div class="user-pill">vistomia</div>
+                <i class="fa-solid fa-circle-user user-icon"></i>
+            </div>
+        </header>
+
+        <aside class="left-toolbar">
+            <div class="circle-btn"><i class="fa-solid fa-plus"></i></div>
+            <div class="circle-btn"><i class="fa-solid fa-minus"></i></div>
+            
+            <div class="tools-container">
+                <button onclick="setPencil()" class="pencil" title="Lápis"><i class="fa-solid fa-pencil"></i></button>
+                <button onclick="setEraser()" class="eraser" title="Borracha"><i class="fa-solid fa-eraser"></i></button>
+                <button onclick="setBucket()" class="bucket" title="Balde de Tinta"><i class="fa-solid fa-fill-drip"></i></button>
+                <button onclick="setDropper()"class="dropper" title="Conta Gotas"><i class="fa-solid fa-eye-dropper"></i></button>
+                <button onclick="setPan()" class="pan" title="Mover"><i class="fa-solid fa-arrows-up-down-left-right"></i></button>
+            </div>
+        </aside>
+
+        <aside class="right-toolbar">
+            <div class="mini-palette">
+                <div class="mini-color"></div>
+                <div class="mini-color"></div>
+                <div class="mini-color"></div>
+                <div class="mini-color"></div>
+                <div class="mini-color"></div>
+                <div class="mini-color"></div>
+                <div class="mini-color"></div>
+                <div class="mini-color"></div>
+                <div class="mini-color"></div>
+                <div class="mini-color"></div>
+            </div>
+            <div class="color-inputs">
+                <input id="color-1" type="color" value="#000000">
+                <input id="color-2" type="color" value="#FFFFFF">
+            </div>
+        </aside>
+
         <div id="cursor"></div>
     </div>
+
     <div id="screen">
         <canvas id="map"></canvas>
         <canvas id="mouse-preview"></canvas>
     </div>
-    </body>
+</body>
 </html>

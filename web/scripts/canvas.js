@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 const canvas = document.getElementById("map")
 const mousePreview = document.getElementById("mouse-preview")
 const color1 = document.getElementById("color-1")
@@ -20,13 +13,10 @@ canvas.height = 1000;
 mousePreview.width = 1000;
 mousePreview.height = 1000;
 
-ctx.fillStyle = "rgb(100, 100, 20)"
-ctx.fillRect(0,0,250,250)
-
 ctx.imageSmoothingEnabled = false;
 ctxM.imageSmoothingEnabled = false;
 
-toolassist = {size: 10}
+toolassist = {size: 1}
 
 pixelapp = new PixelApp()
 
@@ -42,7 +32,8 @@ color1.addEventListener("input", ()=>{
 })
 
 const panzoom = Panzoom(screen, {
-        maxScale: 5,
+        maxScale: 100,
+        minScale: 1,
         canvas: true,
         disablePan: true
     })
@@ -50,19 +41,45 @@ const panzoom = Panzoom(screen, {
 panzoom.pan(10, 10)
 panzoom.zoom(3, { animate: true })
 
+function disableButtons() {
+    const botoes = document.querySelectorAll(".tools-container button");
+    botoes.forEach(botao => botao.removeAttribute("on"));
+}
+
+function activateButton(str) {
+    document.getElementsByClassName(str)[0].toggleAttribute("on", true)
+}
+
 function setPencil() {
     panzoom.setOptions({ disablePan: true })
     pixelapp.setTool(pencil)
+    
+    disableButtons()
+    activateButton("pencil")
 }
 
 function setEraser() {
     panzoom.setOptions({ disablePan: true })
     pixelapp.setTool(eraser)
+    disableButtons()
+    activateButton("eraser")
+}
+
+function setDropper() {
+    disableButtons()
+    activateButton("dropper")
+}
+
+function setBucket() {
+    disableButtons()
+    activateButton("bucket")
 }
 
 function setPan() {
     panzoom.setOptions({ disablePan: false })
     pixelapp.setTool(pan)
+    disableButtons()
+    activateButton("pan")
 }
 
 screen.parentElement.addEventListener('wheel', panzoom.zoomWithWheel)
@@ -90,7 +107,10 @@ screen.addEventListener('pointermove', function(event) {
     
     ctxM.clearRect(old.x, old.y, size, size);
     
+    
     ctxM.fillStyle = "rgba(0,0,0,0.5)"
+    ctxM.fillRect(gridPos.x, gridPos.y, size, size);
+    ctxM.fillStyle = "rgba(255, 255, 255, 0.5)"
     ctxM.fillRect(gridPos.x, gridPos.y, size, size);
     
     if (painting) {
@@ -116,4 +136,12 @@ screen.addEventListener("pointerdown", function(event) {
 
 screen.addEventListener("pointerup", function(event) {    
     painting = false
+    pixelapp.upTool()
 });
+
+screen.addEventListener("pointerout", function(event) {    
+    painting = false
+    pixelapp.upTool()
+});
+
+setPan()
