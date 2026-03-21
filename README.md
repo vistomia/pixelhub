@@ -52,12 +52,17 @@ Casos de erro
 
 Caso o usuário não consiga enviar o buffer ele recebe um rollback de suas mudanças e um aviso.
 
-## TODO
+## TODO Front
 
-- [ x ] Pencil
-- [ x ] Eraser
-- [ o ] Bucket
-- [  ] Dropper
-- [ X ] Pan
+- [x] Pencil
+- [x] Eraser
+- [x] Bucket
+- [ ] Dropper
+- [X] Pan
 - [ ] Cursors
-- [ X ] Pallete
+- [X] Pallete
+
+## TODO Back
+
+- [ ] Paint
+- [ ] Bucket
