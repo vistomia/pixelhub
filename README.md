@@ -61,6 +61,7 @@ Caso o usuário não consiga enviar o buffer ele recebe um rollback de suas muda
 - [X] Pan
 - [ ] Cursors
 - [X] Pallete
+- [ ] Botão de Zoom
 
 ## TODO Back
 
