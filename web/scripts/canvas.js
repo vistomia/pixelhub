@@ -1,7 +1,7 @@
 const canvas = document.getElementById("map")
 const mousePreview = document.getElementById("mouse-preview")
 const color1 = document.getElementById("color-1")
-const color2 = document.getElementById("color-1")
+const color2 = document.getElementById("color-2")
 
 const ctx = canvas.getContext("2d")
 const ctxM = mousePreview.getContext("2d")
@@ -145,3 +145,38 @@ screen.addEventListener("pointerout", function(event) {
 });
 
 setPan()
+
+const colorLookup = {
+    blue: "#3772FF",
+    orange: "#f0803c",
+    red: "#ef2d56",
+    yellow: "rgb(236, 216, 29)",
+    black: "#000",
+    white: "#FFF",
+    gray: "#8228ac",
+    green: "#2fbf71",
+    brown: "#b6531a",
+    magenta: "#bf2fa7"
+};
+
+const palette = document.querySelectorAll(".mini-color");
+
+for (const btn of palette) {
+    btn.addEventListener("pointerdown", (event) => {
+        const clickedButton = event.currentTarget;
+        
+        let colorName = null;
+        for (const className of clickedButton.classList) {
+            if (colorLookup[className]) {
+                colorName = className;
+                break;
+            }
+        }
+
+        if (colorName) {
+            const colorValue = colorLookup[colorName];
+            pixelapp.setColor(colorValue)
+            color1.value = colorValue
+        }
+    });
+}
