@@ -57,11 +57,12 @@ Caso o usuário não consiga enviar o buffer ele recebe um rollback de suas muda
 - [x] Pencil
 - [x] Eraser
 - [x] Bucket
-- [ ] Dropper
+- [X] Dropper
 - [X] Pan
 - [ ] Cursors
 - [X] Pallete
-- [ ] Botão de Zoom
+- [X] Botão de Zoom
+- [X] Keybinds
 
 ## TODO Back
 

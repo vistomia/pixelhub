@@ -1,12 +1,12 @@
 class PixelApp {
-    constructor() {
+    constructor(color) {
         this.colorSlot = 0
-        this.color = ["rgb(0,0,0)", "rgb(255,255,255)"]
+        this.color = color
         this.tool = null
     }
 
     setColor(color) {
-        this.color[this.colorSlot] = color
+        this.color.value = color
     }
 
     setTool(tool) {
@@ -14,7 +14,11 @@ class PixelApp {
     }
 
     useTool(x, y, x1, y2) {
-        this.tool.use(this.color, x, y, x1, y2)
+        const result = this.tool.use(this.color.value, x, y, x1, y2)
+
+        if (typeof result === 'string') {
+            this.setColor(result)
+        }
     }
 
     upTool() {
@@ -32,7 +36,7 @@ class Pencil {
     }
 
     use(color, x, y, _, _1) {
-        this.ctx.fillStyle = color[0];
+        this.ctx.fillStyle = color;
 
         if (this.lastX == x && this.lastY == y) {
             return
@@ -106,7 +110,7 @@ class Eraser {
     }
 
     use(color, x, y, x1, y2) {
-        this.ctx.fillStyle = color[1];
+        this.ctx.fillStyle = "#FFF";
 
         if (this.lastX == null || this.lastY == null) {
             this.lastX = x
@@ -182,6 +186,15 @@ class Dropper {
         this.size = 1
         this.ctx = ctx
     }
+
+    use(color, x, y, x1, y2) {
+        const pixel = ctx.getImageData(x, y, 1, 1)
+        const [r, g, b, a] = pixel.data
+        
+        const rgbaColor = `rgba(${r}, ${g}, ${b}, ${a / 255})`;
+        console.log(rgbaColor)
+        return rgbaColor
+    }
 }
 
 class Bucket {
@@ -192,6 +205,6 @@ class Bucket {
     }
 
     use(color, x, y, x1, y2) {
-
+        
     }
 }

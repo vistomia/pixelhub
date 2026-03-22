@@ -125,6 +125,7 @@ canvas {
 }
 
 .circle-btn {
+    pointer-events: all;
     width: 35px;
     height: 35px;
     border: var(--border-width) solid var(--border-dark);
@@ -134,6 +135,11 @@ canvas {
     justify-content: center;
     align-items: center;
     margin: auto;
+    cursor: pointer;
+}
+
+.circle-btn:hover {
+    background-color: #e9ecef;
 }
 
 .tools-container {

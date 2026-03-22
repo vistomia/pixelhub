@@ -56,6 +56,7 @@
     <script src="scripts/services.js"></script>           <!-- funções fetch -->
     <script src="scripts/drawingTools.js"></script>         <!-- implementação das ferramentas -->
     <script src="scripts/canvas.js" defer></script>        <!-- implementação da tela -->
+    <script src="scripts/keybind.js" defer></script>
     <script src="scripts/sync.js" defer></script>              <!-- requests de sincronização da tela -->
 </head>
 
@@ -74,15 +75,15 @@
         </header>
 
         <aside class="left-toolbar">
-            <div class="circle-btn"><i class="fa-solid fa-plus"></i></div>
-            <div class="circle-btn"><i class="fa-solid fa-minus"></i></div>
+            <button class="circle-btn" id="zoomin-btn" onclick="zoomIn()"><i class="fa-solid fa-plus"></i></button>
+            <button class="circle-btn" id="zoomout-btn" onclick="zoomOut()"><i class="fa-solid fa-minus"></i></button>
             
             <div class="tools-container">
-                <button onclick="setPencil()" class="pencil" title="Lápis"><i class="fa-solid fa-pencil"></i></button>
-                <button onclick="setEraser()" class="eraser" title="Borracha"><i class="fa-solid fa-eraser"></i></button>
-                <button onclick="setBucket()" class="bucket" title="Balde de Tinta"><i class="fa-solid fa-fill-drip"></i></button>
-                <button onclick="setDropper()"class="dropper" title="Conta Gotas"><i class="fa-solid fa-eye-dropper"></i></button>
-                <button onclick="setPan()" class="pan" title="Mover"><i class="fa-solid fa-arrows-up-down-left-right"></i></button>
+                <button onclick="setPencil()" class="pencil" title="Lápis [Q]"><i class="fa-solid fa-pencil"></i></button>
+                <button onclick="setEraser()" class="eraser" title="Borracha [E]"><i class="fa-solid fa-eraser"></i></button>
+                <button onclick="setBucket()" class="bucket" title="Balde de Tinta [R]"><i class="fa-solid fa-fill-drip"></i></button>
+                <button onclick="setDropper()"class="dropper" title="Conta Gotas [Botão Direito]"><i class="fa-solid fa-eye-dropper"></i></button>
+                <button onclick="setPan()" class="pan" title="Mover [Espaço]"><i class="fa-solid fa-arrows-up-down-left-right"></i></button>
             </div>
         </aside>
 

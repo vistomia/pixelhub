@@ -16,18 +16,23 @@ mousePreview.height = 1000;
 ctx.imageSmoothingEnabled = false;
 ctxM.imageSmoothingEnabled = false;
 
+ctx.fillStyle = "#FFF"
+ctx.fillRect(0, 0, 1000, 1000)
+
 toolassist = {size: 1}
 
-pixelapp = new PixelApp()
+pixelapp = new PixelApp(color1)
 
 const pencil = new Pencil(ctx)
 const eraser = new Eraser(ctx)
 const pan = new Pan(ctx)
+const bucket = new Bucket(ctx)
+const dropper = new Dropper(ctx)
+let lasttool = null
 
 pixelapp.setTool(pencil)
 
 color1.addEventListener("input", ()=>{
-    console.log("teste")
     pixelapp.setColor(color1.value)
 })
 
@@ -67,11 +72,13 @@ function setEraser() {
 
 function setDropper() {
     disableButtons()
+    pixelapp.setTool(dropper)
     activateButton("dropper")
 }
 
 function setBucket() {
     disableButtons()
+    pixelapp.setTool(bucket)
     activateButton("bucket")
 }
 
@@ -80,6 +87,14 @@ function setPan() {
     pixelapp.setTool(pan)
     disableButtons()
     activateButton("pan")
+}
+
+function zoomIn() {
+    panzoom.zoomIn()
+}
+
+function zoomOut() {
+    panzoom.zoomOut();
 }
 
 screen.parentElement.addEventListener('wheel', panzoom.zoomWithWheel)
@@ -120,6 +135,7 @@ screen.addEventListener('pointermove', function(event) {
     old = gridPos;
 });
 
+let teste = ""
 screen.addEventListener("pointerdown", function(event) {    
     painting = true
     // TODO: função pintar na tools.js feedback local e envio para o servidor
@@ -131,11 +147,23 @@ screen.addEventListener("pointerdown", function(event) {
         y: mousePos.y - (mousePos.y % size)
     };
     
+    if (event.button === 2 && pixelapp.tool.name != "dropper") {
+        teste = pixelapp.tool.name
+        setDropper()
+    }
+
     pixelapp.useTool(gridPos.x, gridPos.y, 0, 0)
 });
 
 screen.addEventListener("pointerup", function(event) {    
     painting = false
+    if (event.button === 2) {
+        if (teste === "pencil") {
+            setPencil()
+        } else {
+            setBucket()
+        }
+    }
     pixelapp.upTool()
 });
 
