@@ -6,6 +6,11 @@ public class Erase extends Tool implements ITool{
 
     private static final String color = "#FFF";
 
+    public Erase(int areaX, int areaY){
+        this.areaX = areaX;
+        this.areaY = areaY;
+    }
+
     @Override
     public void write(Board board, int x, int y) {
         board.setPixel(x, y, Erase.color);
