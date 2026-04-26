@@ -17,6 +17,49 @@ body {
     font-family: 'Nunito', sans-serif;
 }
 
+body {
+    cursor: url('./ico.png') !important;
+}
+
+#screen {
+    width: 100vw;
+    height: 100vh;
+}
+
+canvas {
+    position: absolute;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    width: 1000px;
+    height: 1000px;
+}
+
+
+
+#cursor {
+    position: absolute;
+    display: block;
+    background-color: black;
+    width: 15px;
+    height: 15px;
+    top: -55px;
+    left: 10px;
+    pointer-events: none !important;
+}
+
+
+.login-window,
+.top-bar, 
+.left-toolbar, 
+.right-toolbar,
+input,
+button {
+    pointer-events: auto !important; /* Wakes them up */
+    z-index: 9999; /* Forces them to the front */
+}
+
 #screen {
     width: 1000px;
     height: 1000px;
@@ -33,18 +76,18 @@ canvas {
 
 #hud {
     position: absolute;
-    z-index: 10;
+    z-index: 999;
     width: 100vw;
     height: 100vh;
-    pointer-events: none;
+    pointer-events: none !important;
 }
 
 #mouse-preview, #id {
-    pointer-events: none;
+    pointer-events: auto;
 }
 
 .top-bar, .left-toolbar, .right-toolbar {
-    pointer-events: none;
+    pointer-events: auto;
     position: absolute;
 }
 
@@ -125,7 +168,7 @@ canvas {
 }
 
 .circle-btn {
-    pointer-events: all;
+    pointer-events: auto;
     width: 35px;
     height: 35px;
     border: var(--border-width) solid var(--border-dark);
@@ -253,7 +296,7 @@ canvas {
     height: 32px;
     border: var(--border-width) solid var(--border-dark);
     border-radius: 8px;
-    pointer-events: all;
+    pointer-events: auto;
     cursor: pointer;
 }
 
@@ -303,6 +346,7 @@ canvas {
     gap: 10px;
 }
 
+
 input[type="color"] {
     border: none;
     width: 72px;
@@ -332,4 +376,89 @@ input[type="color"]::-webkit-color-swatch {
     height: 20px;
     border-radius: 4px;
     pointer-events: none;
+}
+
+#modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+
+.login-window {
+    border:#1d1d1d 4px solid;
+    background-color: rgba(214, 214, 214, 0.377);
+    pointer-events: auto !important;
+    border-radius: 28px;
+    padding: 16px;
+    z-index: 9999;
+}
+
+.login-container {
+    max-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: #ffffff;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-top: 0;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.login-window input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 12px;
+    box-sizing: border-box;
+    border: #000 3px solid;
+    font-size: 14px;
+}
+
+.login-window input:focus {
+    outline: none;
+    border-color: #0066ff;
+    box-shadow: 0 0 0 2px rgba(0, 102, 255, 0.2);
+}
+
+.login-window button {
+    width: 100%;
+    padding: 12px;
+    background-color: #3772FF;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-radius: 12px;
+    border:#0052cc 3px solid;
+    transition: 500ms;
+}
+
+.login-window button:hover {
+    background-color: #3772FF;
+    border: #3772FF 3px solid;
+    border-radius: 18px;
+    transition: 200ms;
 }

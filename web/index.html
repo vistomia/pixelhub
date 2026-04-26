@@ -5,55 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>pixelhub</title>
     <style>
-        body {
-            cursor: url('./ico.png') !important;
-        }
-
-        #screen {
-            width: 100vw;
-            height: 100vh;
-        }
-
-        canvas {
-            position: absolute;
-            image-rendering: -moz-crisp-edges;
-            image-rendering: -webkit-crisp-edges;
-            image-rendering: pixelated;
-            image-rendering: crisp-edges;
-            width: 1000px;
-            height: 1000px;
-        }
-
-        #hud {
-            position: absolute;
-            z-index: 1;
-            width: 100vw;
-            height: 100vh;
-        }
-
-        #mouse-preview, #hud, #id {
-            pointer-events: none;
-        }
-
-        #cursor {
-            position: absolute;
-            display: block;
-            background-color: black;
-            width: 15px;
-            height: 15px;
-            top: -55px;
-            left: 10px;
-        } 
-
-        button, input {
-            height: 3rem;
-            pointer-events: all !important;
-        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/@panzoom/panzoom@4.6.1/dist/panzoom.min.js"></script> <!-- biblioteca de pan e zoom-->
-    <script src="scripts/services.js"></script>           <!-- funções fetch -->
+    <script src="scripts/services.js" defer></script>           <!-- funções fetch -->
     <script src="scripts/drawingTools.js"></script>         <!-- implementação das ferramentas -->
     <script src="scripts/canvas.js" defer></script>        <!-- implementação da tela -->
     <script src="scripts/keybind.js" defer></script>
@@ -62,6 +18,22 @@
 
 <body oncontextmenu="return false;">
     <div id="hud">
+        <div id="modal">
+            <div class="login-window">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input id="username" type="text" onpointerdown="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="this.focus()">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input id="password" type="password" onpointerdown="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="this.focus()">
+                    </div>
+                    <button onpointerdown="event.stopPropagation()" onmousedown="event.stopPropagation()" onclick="alert('send')" type="submit">Entrar</button>
+                </form>
+            </div>
+        </div>
         <header class="top-bar">
             <div class="top-left">
                 <h1 class="logo-text">pixelhub</h1>
@@ -71,6 +43,9 @@
             <div class="top-right">
                 <div class="user-pill">vistomia</div>
                 <i class="fa-solid fa-circle-user user-icon"></i>
+            </div>
+            <div class="top-right">
+                <div class="user-pill">Entrar</div>
             </div>
         </header>
 
