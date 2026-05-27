@@ -1,56 +1,92 @@
-const api_url = ""
-const socket = new WebSocket("ws://localhost:3001")
+const endpoint = "http://localhost:8000"
+const socket = new WebSocket("ws://localhost:8000/ws")
 
+let username = ""
 var pixelsize = 0
 var pixelbuffer = []
+var pixelpaint = []
 
 socket.onopen = () => {
-    socket.send(JSON.stringify(pixelbuffer));
+    console.log("Entrou")
+};
+
+socket.onclose = () => {
+    console.log('Desconectado do servidor.');
 };
 
 setInterval(() => {
     if (pixelsize >= 1) {
-        socket.send(JSON.stringify(pixelbuffer))
+        for (send of pixelbuffer) {
+            var payload = {
+                type: "draw",
+                user: username,
+                start: {x: send[1], y: send[2]},
+                end: {x: send[1], y: send[2]},
+                color: send[0],
+                lineWidth: 1
+            }
+            
+            socket.send(JSON.stringify(payload))
+        }
         pixelsize = 0
         pixelbuffer = []
+
         return
     }
 }, 200)
+
+
+function sendBucket(x, y, color) {
+    var bucketPayload = {
+        type: "bucket",
+        user: username,
+        start: {x: x, y: y},
+        color: color
+    }
+
+    console.log(bucketPayload)
+
+    socket.send(JSON.stringify(bucketPayload))
+}
 
 document.getElementById('login-form').addEventListener('submit', async function(event) {
     event.preventDefault(); 
 
     const usernameInput = document.getElementById('username').value;
-    const passwordInput = document.getElementById('password').value;
-    const submitButton = document.querySelector('.form-field button');
+    const submitButton = document.getElementById('submit-button');
+    const modalLogin = document.getElementById('modal-login');
+
+    if (usernameInput.length >= 15) {
+        alert("O nome de usuário deve ser de no máximo 15 caracteres.")
+        return
+    }
 
     try {
         submitButton.disabled = true;
-        submitButton.textContent = 'Logging in...';
+        submitButton.textContent = 'Entrando..';
 
-        const response = await fetch( api_url + '/login', {
+        const response = await fetch(endpoint + '/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ 
-                username: usernameInput, 
-                password: passwordInput
+                username: usernameInput
             })
         });
 
         const data = await response.json();
 
         if (response.ok) {
-            // JWT
-            const token = data.token; 
-            localStorage.setItem('auth_token', token);            
+            modalLogin.style.display = "none";
+            document.getElementById("username-pill").textContent = usernameInput;
+            startKeybind();
         } else {
-            alert(`Login failed: ${data.error || 'Please check your credentials.'}`);
+            alert(data.message);
         }
     } catch (error) {
         console.error('Network or parsing error:', error);
-        alert('An error occurred while trying to log in. Please try again later.');
+        alert("Um erro inesperado ocorreu. Por favor, tente mais tarde.");
     } finally {
         submitButton.disabled = false;
         submitButton.textContent = 'Entrar';

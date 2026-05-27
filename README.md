@@ -14,8 +14,6 @@ Mural de Pixel Art Colaborativo.
 ## Como Executar?
 
 Use o liveserver no index.html
-- fiz um backend bem mais ou menos só para ver se o websocket tava funcionando:
-``node main.js``
 
 ### Superclasse
 

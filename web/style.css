@@ -378,7 +378,7 @@ input[type="color"]::-webkit-color-swatch {
     pointer-events: none;
 }
 
-#modal {
+#modal-login {
     position: absolute;
     top: 0;
     left: 0;
@@ -393,7 +393,7 @@ input[type="color"]::-webkit-color-swatch {
 
 .login-window {
     border:#1d1d1d 4px solid;
-    background-color: rgba(214, 214, 214, 0.377);
+    background-color: rgba(245, 242, 242, 0.973);
     pointer-events: auto !important;
     border-radius: 28px;
     padding: 16px;
@@ -461,4 +461,14 @@ input[type="color"]::-webkit-color-swatch {
     border: #3772FF 3px solid;
     border-radius: 18px;
     transition: 200ms;
+}
+
+.number-users {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 1em;
+    color: #0052cc;
+    text-shadow: #8a8a8a 0px 0px 1px;
 }
