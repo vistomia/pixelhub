@@ -1,5 +1,5 @@
-const endpoint = "http://localhost:8000"
-const socket = new WebSocket("ws://localhost:8000/ws")
+const endpoint = "http://localhost:8080/auth"
+const socket = new WebSocket("ws://localhost:8080/ws")
 
 let username = ""
 var pixelsize = 0
